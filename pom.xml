@@ -6,7 +6,11 @@
 
     <groupId>com.zj.api</groupId>
     <artifactId>api-home</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>webapp</module>
+    </modules>
 
 
 </project>
