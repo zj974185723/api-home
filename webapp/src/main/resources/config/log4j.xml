@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- - Log4j配置文件。 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- ===================================================================== -->
+	<!-- Appenders -->
+	<!-- ===================================================================== -->
+
+    <appender name="CONSOLE-APPENDER" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>
+    </appender>
+
+
+	<!-- [公共Appender] 默认 -->
+    <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/home/logs/api-homeService/common-default.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>
+    </appender>
+
+	<!-- [公共Appender] 汇总错误 -->
+    <appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/home/logs/api-homeService/common-error.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <param name="threshold" value="error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>
+    </appender>
+
+	<appender name="ADMIN-DAL-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/home/logs/api-homeService/admin-dal.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="ADMIN-SAL-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/home/logs/api-homeService/admin-sal.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="ADMIN-FUND-TRACK-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/home/logs/api-homeService/admin-fund-track.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="ADMIN-OPER-TRACK-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/home/logs/api-homeService/admin-oper-track.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="APACHE-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/home/logs/api-homeService/common-apache.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+           <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>
+    </appender>
+    
+    <appender name="SPRING-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/home/logs/api-homeService/common-spring.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+           <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>
+    </appender>
+
+	<logger name="ADMIN_DAL_DIGEST" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ADMIN-DAL-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+	<logger name="ADMIN_SAL_DIGEST">
+		<level value="INFO" />
+		<appender-ref ref="ADMIN-SAL-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+	<logger name="ADMIN_FUND_TRACK">
+		<level value="INFO" />
+		<appender-ref ref="ADMIN-FUND-TRACK-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+	<logger name="ADMIN_OPER_TRACK">
+		<level value="INFO" />
+		<appender-ref ref="ADMIN-OPER-TRACK-APPENDER" />
+		<appender-ref ref="ERROR-APPENDER" />
+	</logger>
+	
+	
+	<logger name="org.apache" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="APACHE-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    
+    <logger name="org.apache.commons.httpclient" additivity="false">
+    	<level value="WARN"/>
+    	<appender-ref ref="APACHE-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+    
+    <logger name="org.mybatis" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="ADMIN-DAL-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+
+    <logger name="java.sql" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="ADMIN-DAL-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+
+    
+    <logger name="org.springframework" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="SPRING-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </logger>
+	
+	<!-- ===================================================================== -->
+    <!-- Root logger                                                           -->
+    <!-- ===================================================================== -->
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="DEFAULT-APPENDER"/>
+        <appender-ref ref="ERROR-APPENDER"/>
+        <appender-ref ref="CONSOLE-APPENDER"/>
+    </root>
+</log4j:configuration>
