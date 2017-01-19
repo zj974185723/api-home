@@ -4,7 +4,7 @@ import com.zj.api.home.web.integration.kernel.MemcachedFacadeClient;
 import com.zj.api.home.web.integration.kernel.QuoteFacadeClient;
 import com.zj.api.home.web.kernel.result.WebResult;
 import com.zj.api.home.web.kernel.result.util.WebResultUtil;
-import com.zj.api.model.cache.constant.CacheKeyConstant;
+import com.zj.api.model.constant.CacheKeyConstant;
 import com.zj.api.model.stock.QuoteInfo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
