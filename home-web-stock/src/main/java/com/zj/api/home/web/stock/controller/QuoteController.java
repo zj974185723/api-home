@@ -33,17 +33,8 @@ public class QuoteController {
     public WebResult getStockQuote(@RequestParam(required = true) String stockCodes) {
         try {
             String[] codes = stockCodes.split(",");
-            if (codes.length == 1) {
-                QuoteInfo quoteInfo = getQuoteInfoMemCache(stockCodes);
-                if (quoteInfo == null) {
-                    Map<String, QuoteInfo> quoteInfoMap = quoteFacadeClient.queryStockQuote(stockCodes);
-                    return WebResultUtil.getSuccessResult(quoteInfoMap.get(stockCodes));
-                }
-                return WebResultUtil.getSuccessResult(quoteInfo);
-            } else {
-                List<QuoteInfo> resultList = getQuotes(codes);
-                return WebResultUtil.getSuccessResult(resultList);
-            }
+            List<QuoteInfo> resultList = getQuotes(codes);
+            return WebResultUtil.getSuccessResult(resultList);
         } catch (IllegalArgumentException e) {
             return WebResultUtil.getParamsErrorResult(e.getMessage());
         } catch (Exception e) {
@@ -60,20 +51,15 @@ public class QuoteController {
     private List<QuoteInfo> getQuotes(String[] codes) {
         List<QuoteInfo> resultList = new ArrayList<QuoteInfo>();
         for (String code : codes) {
-            QuoteInfo quoteInfo = getQuoteInfoMemCache(code);
+            QuoteInfo quoteInfo = memcachedFacadeClient.get(CacheKeyConstant.QUOTE_INFO_KEY + code);
             if (quoteInfo != null) {
                 resultList.add(quoteInfo);
             } else {
                 Map<String, QuoteInfo> quoteInfoMap = quoteFacadeClient.queryStockQuote(code);
-                QuoteInfo tmpQuoteInfo = quoteInfoMap.get(code);
-                resultList.add(tmpQuoteInfo);
+                resultList.add(quoteInfoMap.get(code));
             }
         }
         return resultList;
-    }
-
-    private QuoteInfo getQuoteInfoMemCache(String code) {
-        return memcachedFacadeClient.get(CacheKeyConstant.QUOTE_INFO_KEY + code);
     }
 
 }
