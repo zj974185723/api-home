@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -34,10 +35,14 @@ public class QuoteController {
             String[] codes = stockCodes.split(",");
             if (codes.length == 1) {
                 QuoteInfo quoteInfo = getQuoteInfoMemCache(stockCodes);
+                if (quoteInfo == null) {
+                    Map<String, QuoteInfo> quoteInfoMap = quoteFacadeClient.queryStockQuote(stockCodes);
+                    return WebResultUtil.getSuccessResult(quoteInfoMap.get(stockCodes));
+                }
                 return WebResultUtil.getSuccessResult(quoteInfo);
             } else {
-                Map<String, QuoteInfo> resultMap = getQuotes(codes);
-                return WebResultUtil.getSuccessResult(resultMap);
+                List<QuoteInfo> resultList = getQuotes(codes);
+                return WebResultUtil.getSuccessResult(resultList);
             }
         } catch (IllegalArgumentException e) {
             return WebResultUtil.getParamsErrorResult(e.getMessage());
@@ -52,19 +57,19 @@ public class QuoteController {
      * @param codes
      * @return
      */
-    private Map<String, QuoteInfo> getQuotes(String[] codes) {
-        Map<String, QuoteInfo> resultMap = new HashMap<String, QuoteInfo>();
+    private List<QuoteInfo> getQuotes(String[] codes) {
+        List<QuoteInfo> resultList = new ArrayList<QuoteInfo>();
         for (String code : codes) {
             QuoteInfo quoteInfo = getQuoteInfoMemCache(code);
             if (quoteInfo != null) {
-                resultMap.put(quoteInfo.getStockCode(), quoteInfo);
+                resultList.add(quoteInfo);
             } else {
                 Map<String, QuoteInfo> quoteInfoMap = quoteFacadeClient.queryStockQuote(code);
                 QuoteInfo tmpQuoteInfo = quoteInfoMap.get(code);
-                resultMap.put(tmpQuoteInfo.getStockCode(), tmpQuoteInfo);
+                resultList.add(tmpQuoteInfo);
             }
         }
-        return resultMap;
+        return resultList;
     }
 
     private QuoteInfo getQuoteInfoMemCache(String code) {
