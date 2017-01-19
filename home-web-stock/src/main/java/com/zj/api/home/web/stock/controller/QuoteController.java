@@ -32,7 +32,7 @@ public class QuoteController {
     @RequestMapping(value = "/quote/getStockQuote.json", method = RequestMethod.GET)
     public WebResult getStockQuote(@RequestParam(required = true) String stockCodes) {
         try {
-            String[] codes = stockCodes.split(",");
+            String[] codes = stockCodes.toLowerCase().split(",");
             List<QuoteInfo> resultList = getQuotes(codes);
             return WebResultUtil.getSuccessResult(resultList);
         } catch (IllegalArgumentException e) {
