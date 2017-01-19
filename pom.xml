@@ -12,7 +12,7 @@
         <module>webapp</module>
         <module>home-web-stock</module>
         <module>home-web-integration</module>
-        <module>home-web-kernel</module>
+        <module>home-common-kernel</module>
     </modules>
 
     <dependencies>

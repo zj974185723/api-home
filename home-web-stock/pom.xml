@@ -13,7 +13,12 @@
     <dependencies>
         <dependency>
             <groupId>com.zj.api</groupId>
-            <artifactId>home-web-kernel</artifactId>
+            <artifactId>home-common-kernel</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zj.api</groupId>
+            <artifactId>home-web-integration</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
